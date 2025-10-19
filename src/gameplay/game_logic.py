@@ -3,12 +3,16 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 import random
 from environment.setttings import PROCESSED_WORDLIST_PATH, COLORS, WORD_LENGTH
-class game_process:
+from gameplay.base_singleton import singleton
+class game_process(singleton): 
     number_of_word = 0
     word_chosen = ""
     word_count = {}
 
     def __init__(self):
+        return
+
+    def random_word(self):
         f = open(PROCESSED_WORDLIST_PATH,"r")
         self.number_of_word = len(f.readlines())
         word_index = random.randint(0,self.number_of_word - 1)
@@ -25,8 +29,9 @@ class game_process:
             self.word_count.update({i:0})
         for i in self.word_chosen:
             self.word_count[i] += 1
+        print(self.word_chosen)
 
-    def in_dictionary(user_input):
+    def in_dictionary(self,user_input):
         if len(user_input) != WORD_LENGTH:
             return False
         f = open(PROCESSED_WORDLIST_PATH,"r")
@@ -47,7 +52,7 @@ class game_process:
                 color_list.append("green")
             else: 
                 if(user_input[i] not in self.word_count or self.word_count[user_input[i]] < count_arr[user_input[i]]):
-                    color_list.append("black")
+                    color_list.append("gray")
                 else:
                     color_list.append("yellow")
         return color_list
