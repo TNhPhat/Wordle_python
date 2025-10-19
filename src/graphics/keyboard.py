@@ -42,6 +42,11 @@ class keyboard(Drawable):
             self.key_rows[i].set_position(self.key_rows[i - 1].get_position()[0],self.key_rows[i - 1].get_position()[1] + self.key_rows[i - 1].get_size()[1] + KEY_SPACE*min(self.scale))
         return
     
+    def get_color(self,char):
+        for i in range(0,3):
+            if char in KEYBOARD_CHAR[i]:
+                return self.key_rows[i].get_color(char)
+
     def set_color(self,char,color):
         for i in self.key_rows:
             if i.set_color(char,color):

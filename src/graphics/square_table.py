@@ -50,11 +50,11 @@ class square_table(Drawable):
     def get_color(self):
         game_logic = game_process()
         user_input = self.row_square_list[self.number_of_tried].get_string()
-        res = {}
+        res = []
         if game_logic.in_dictionary(user_input):
             colors = game_logic.getcolor(user_input)
             for i in range(0,WORD_LENGTH):
-                res.update({user_input[i]:colors[i]})
+                res.append([user_input[i],colors[i]])
         return res
     
     def flipped(self,row_index):

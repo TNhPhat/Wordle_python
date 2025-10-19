@@ -22,7 +22,11 @@ class keyboard_row(Drawable):
         for i in self.keys:
             i.update_layout(scale, window_width, window_height)
         return 
-    
+    def get_color(self,char):
+        for i in self.keys:
+            if i.get_character() == char:
+                return i.get_color()
+            
     def set_color(self,char,color):
         for i in range(len(self.keys)):
             if char == self.keys[i].get_character():
