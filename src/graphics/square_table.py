@@ -8,7 +8,8 @@ from gameplay.game_logic import game_process
 
 class square_table(Drawable):
     
-    def __init__(self,scale = [1,1]):
+    def __init__(self,game_engine,scale = [1,1]):
+        self.game_engine = game_engine
         super().__init__(scale)
         self.row_square_list = [row_square(scale) for _ in range(MAX_GUESSES)]
         self.format_col()
@@ -66,6 +67,7 @@ class square_table(Drawable):
                 game_logic = game_process()
                 user_input = self.row_square_list[self.number_of_tried].get_string()
                 if game_logic.in_dictionary(user_input):
+                    self.game_engine.play_enter_sound()
                     colors = game_logic.getcolor(user_input)
                     self.row_square_list[self.number_of_tried].apply_colors(colors)
                     self.row_square_list[self.number_of_tried].start_flip()

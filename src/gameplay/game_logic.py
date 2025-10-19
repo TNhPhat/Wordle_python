@@ -13,6 +13,7 @@ class game_process(singleton):
         return
 
     def random_word(self):
+        self.word_count.clear()
         f = open(PROCESSED_WORDLIST_PATH,"r")
         self.number_of_word = len(f.readlines())
         word_index = random.randint(0,self.number_of_word - 1)

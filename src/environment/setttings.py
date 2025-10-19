@@ -6,7 +6,7 @@ FPS = 60
 #PATH
 RAW_WORDLIST_PATH = "assets\word_list\\valid-wordle-words.txt"
 PROCESSED_WORDLIST_PATH = "assets\word_list\words_len_5.txt"
-
+ICON_PATH = "assets\images\image.png"
 COLORS = {
     "green": (121, 184, 81),
     "yellow": (243, 194, 55),
@@ -38,8 +38,19 @@ ULTI_SOUND = [
      "assets/sounds/Pyke.UltimateMusic.03.02.ogg",
      "assets/sounds/Pyke.UltimateMusic.03.03.ogg",
      "assets/sounds/Pyke.UltimateMusic.03.04.ogg",
-     "assets/sounds/Pyke.UltimateMusic.03.05.ogg"]
+     "assets/sounds/Pyke.UltimateMusic.03.05.ogg"],
+
+     ["assets/sounds/Pyke.UltimateMusic.04.01.ogg",
+     "assets/sounds/Pyke.UltimateMusic.04.02.ogg",
+     "assets/sounds/Pyke.UltimateMusic.04.03.ogg",
+     "assets/sounds/Pyke.UltimateMusic.04.04.ogg",
+     "assets/sounds/Pyke.UltimateMusic.04.05.ogg"]
 ]
+
+ULTI_EXECUTE = "assets\sounds\Pyke.UltimateExecute.mp3"
+WARING_SOUND = "assets\sounds\Pyke.Warning.ogg"
+LOSE_SOUND = "assets\sounds\Pyke.Laugh.ogg"
+
 #keyboard settings
 KEYBOARD_CHAR = [['Q','W','E','R','T','Y','U','I','O','P'],
                  ['A','S','D','F','G','H','J','K','L'],

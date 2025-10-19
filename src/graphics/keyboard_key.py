@@ -10,12 +10,20 @@ class keyboard_key(Drawable):
         self.rect = pygame.Rect(0,0,width,height)
         self.color = COLORS["keyboard_key_color"]
         self.character = character
-        self.font = pygame.font.Font(FONT_PATH, 3*min(width,height) //(4*len(character)))
+        self.is_special = character in ["ENTER", "BACKSPACE"]
+        font_size = 2*min(width,height) // 3
+        print(font_size)
+        if self.is_special:
+            font_size = int(font_size * 0.7)
+        self.font = pygame.font.Font(FONT_PATH,font_size)
         
-
+        
     def update_layout(self, scale, window_width, window_height):
         self.set_scale(scale)
-        self.font = pygame.font.Font(FONT_PATH,round(3*min(self.rect.width*self.scale[0],self.rect.height*self.scale[1]) / (4*len(self.character))))
+        font_size = int(2*min(self.rect.width*self.scale[0],self.rect.height*self.scale[1])// 3)
+        if self.is_special:
+            font_size = int(font_size * 0.7)
+        self.font = pygame.font.Font(FONT_PATH, font_size)
         return 
 
     def reset_state(self):

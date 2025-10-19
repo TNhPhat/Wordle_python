@@ -3,7 +3,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame 
     
 from pygame.locals import *
-from environment.setttings import BASE_SCREEN_WIDTH,BASE_SCREEN_HEIGHT,TITLE,COLORS,MAX_GUESSES,FPS,FONT_PATH,WIN_STRING,LOSE_STRING,PRESS_ANY_KEY_SRING,WIN_LOSE_FONT_SIZE,PRESSED_ANY_KEY_FONT_SIZE,LINE_SPACE,DEFAULT_BLUR_AMOUNT,DEFAULT_DARK_ALPHA
+from environment.setttings import BASE_SCREEN_WIDTH,BASE_SCREEN_HEIGHT,TITLE,COLORS,MAX_GUESSES,FPS,FONT_PATH,WIN_STRING,LOSE_STRING,PRESS_ANY_KEY_SRING,WIN_LOSE_FONT_SIZE,PRESSED_ANY_KEY_FONT_SIZE,LINE_SPACE,DEFAULT_BLUR_AMOUNT,DEFAULT_DARK_ALPHA,ICON_PATH
 from graphics.play_scene import PlayScene
 from gameplay.game_logic import game_process
 from engine.sound_manager import SoundManager
@@ -11,6 +11,8 @@ from engine.sound_manager import SoundManager
 class game_engine:
     def __init__(self):
         pygame.init()
+        icon = pygame.image.load(ICON_PATH)
+        pygame.display.set_icon(icon)
         self.number_green_word = 0
         self.sound_manager = SoundManager()
         self.screen = pygame.display.set_mode((BASE_SCREEN_WIDTH, BASE_SCREEN_HEIGHT),pygame.RESIZABLE)
@@ -29,9 +31,12 @@ class game_engine:
         game_logic.random_word()
 
     def set_number_green_word(self,number):
-        if number > self.number_green_word:
+        if number > 0:
             self.sound_manager.play_ulti_sound(number)
-            self.number_green_word = number
+        self.number_green_word = max(number,self.number_green_word)
+
+    def play_enter_sound(self):
+        self.sound_manager.play_ulti_execute_sound()
 
     def blur_and_dark(self,surface, blur_amount=DEFAULT_BLUR_AMOUNT, dark_alpha=DEFAULT_DARK_ALPHA):
         w, h = surface.get_size()
@@ -79,13 +84,18 @@ class game_engine:
         return
     
     def set_number_of_tried(self,number_of_tried):
+        if number_of_tried > self.number_of_tried and number_of_tried == 5:
+            self.sound_manager.play_warning_sound()
         self.number_of_tried = number_of_tried
+
 
     def get_number_of_tried(self):
         return self.number_of_tried
     
     def set_lose(self):
         self.lose = True
+        self.sound_manager.play_lose_sound()
+
     
     def set_win(self):
         self.win = True

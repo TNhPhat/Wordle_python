@@ -10,7 +10,7 @@ import pygame
 class PlayScene(Scene):
     def __init__(self, game,scale = [1,1]):
         super().__init__(game,scale)
-        self.square = square_table(scale)
+        self.square = square_table(game,scale)
         self.keyboard = keyboard(scale)
         self.color_keyboard_queue = []
         posx = (BASE_SCREEN_WIDTH - self.square.get_size()[0])//2
