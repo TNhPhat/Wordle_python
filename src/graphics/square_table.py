@@ -19,9 +19,10 @@ class square_table(Drawable):
         self.set_scale(scale)
         for i in self.row_square_list:
             i.update_layout(scale, window_width, window_height)
+        self.format_col()
         return 
     
-    def reset_state(self):
+    def reset_state(self):                  
         for i in self.row_square_list:
             i.reset_state()
         self.format_col()
@@ -60,6 +61,12 @@ class square_table(Drawable):
     
     def flipped(self,row_index):
         return self.row_square_list[row_index].flipped()
+    
+    def start_bounce(self,row_index):
+        self.row_square_list[row_index].start_bounce()
+
+    def bounced(self,row_index):
+        return self.row_square_list[row_index].bounced()
 
     def handle_event(self, event):
         if event.type == pygame.KEYDOWN:

@@ -44,17 +44,19 @@ class game_process(singleton):
     
     def getcolor(self,user_input):
         count_arr = {}
-        color_list = []
+        color_list = [str("") for _ in range(WORD_LENGTH)]
         for i in user_input:
             count_arr.update({i:0})
         for i in range(0,WORD_LENGTH):
-            count_arr[user_input[i]] += 1
             if user_input[i] == self.word_chosen[i]:
-                color_list.append("green")
-            else: 
+                color_list[i] = "green"
+                count_arr[user_input[i]] += 1
+        for i in range(0,WORD_LENGTH):
+            if not color_list[i]:
+                count_arr[user_input[i]] += 1
                 if(user_input[i] not in self.word_count or self.word_count[user_input[i]] < count_arr[user_input[i]]):
-                    color_list.append("gray")
+                        color_list[i]  = "gray"
                 else:
-                    color_list.append("yellow")
+                    color_list[i] = "yellow"
         return color_list
 

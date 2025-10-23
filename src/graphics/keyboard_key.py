@@ -1,7 +1,7 @@
 import sys, os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 from graphics.base_graphics import Drawable
-from environment.setttings import COLORS,FONT_PATH,BORDER_RADIUS,KEYBOARD_CHAR
+from environment.setttings import COLORS,FONT_PATH,BORDER_RADIUS,KEYBOARD_CHAR,COLOR_TRANSITION_DURATION
 import pygame
 
 class keyboard_key(Drawable):
@@ -9,13 +9,17 @@ class keyboard_key(Drawable):
         super().__init__(scale)
         self.rect = pygame.Rect(0,0,width,height)
         self.color = COLORS["keyboard_key_color"]
+        self.target_color = self.color
         self.character = character
         self.is_special = character in ["ENTER", "BACKSPACE"]
         font_size = 2*min(width,height) // 3
-        print(font_size)
         if self.is_special:
             font_size = int(font_size * 0.7)
         self.font = pygame.font.Font(FONT_PATH,font_size)
+
+        self.color_transition_process = 0.0
+        self.color_transition_duration = COLOR_TRANSITION_DURATION
+        self.color_transition_time_counter = 0.0
         
         
     def update_layout(self, scale, window_width, window_height):
@@ -29,12 +33,15 @@ class keyboard_key(Drawable):
     def reset_state(self):
         self.set_position(0,0)
         self.color = COLORS["keyboard_key_color"]
+        self.target_color = self.color
+        self.color_transition_process = 0.0
+        self.color_transition_time_counter = 0.0
 
     def get_character(self):
         return self.character
     
     def set_color(self,color):
-        self.color = COLORS[color]
+        self.target_color = COLORS[color]
 
     def get_color(self):
         return self.color
@@ -49,6 +56,9 @@ class keyboard_key(Drawable):
         return False
     
     def update(self,dt):
+        if self.color != self.target_color:
+            self.color_transition_time_counter += dt
+            self.color = self.lerp_color(self.color,self.target_color,self.color_transition_time_counter/self.color_transition_duration)
         return 
 
     def handle_event(self, event):

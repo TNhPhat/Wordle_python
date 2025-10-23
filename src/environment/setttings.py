@@ -11,6 +11,7 @@ COLORS = {
     "green": (121, 184, 81),
     "yellow": (243, 194, 55),
     "gray": (61, 64, 84),
+    "red": (237,67,55),
     "black": (0, 0, 0),
     "white": (255, 255, 255),
     "darker_white":(240,240,240),
@@ -21,35 +22,6 @@ COLORS = {
     "border_color_with_text":(123,127,152),
     "keyboard_key_color":(101,103,128)
 }
-ULTI_SOUND = [
-    ["assets/sounds/Pyke.UltimateMusic.01.01.ogg",
-    "assets/sounds/Pyke.UltimateMusic.01.02.ogg",
-    "assets/sounds/Pyke.UltimateMusic.01.03.ogg",
-    "assets/sounds/Pyke.UltimateMusic.01.04.ogg",
-    "assets/sounds/Pyke.UltimateMusic.01.05.ogg"],
-
-    ["assets/sounds/Pyke.UltimateMusic.02.01.ogg",
-     "assets/sounds/Pyke.UltimateMusic.02.02.ogg",
-     "assets/sounds/Pyke.UltimateMusic.02.03.ogg",
-     "assets/sounds/Pyke.UltimateMusic.02.04.ogg",
-     "assets/sounds/Pyke.UltimateMusic.02.05.ogg"],
-
-     ["assets/sounds/Pyke.UltimateMusic.03.01.ogg",
-     "assets/sounds/Pyke.UltimateMusic.03.02.ogg",
-     "assets/sounds/Pyke.UltimateMusic.03.03.ogg",
-     "assets/sounds/Pyke.UltimateMusic.03.04.ogg",
-     "assets/sounds/Pyke.UltimateMusic.03.05.ogg"],
-
-     ["assets/sounds/Pyke.UltimateMusic.04.01.ogg",
-     "assets/sounds/Pyke.UltimateMusic.04.02.ogg",
-     "assets/sounds/Pyke.UltimateMusic.04.03.ogg",
-     "assets/sounds/Pyke.UltimateMusic.04.04.ogg",
-     "assets/sounds/Pyke.UltimateMusic.04.05.ogg"]
-]
-
-ULTI_EXECUTE = "assets\sounds\Pyke.UltimateExecute.mp3"
-WARING_SOUND = "assets\sounds\Pyke.Warning.ogg"
-LOSE_SOUND = "assets\sounds\Pyke.Laugh.ogg"
 
 #keyboard settings
 KEYBOARD_CHAR = [['Q','W','E','R','T','Y','U','I','O','P'],
@@ -74,6 +46,7 @@ LINE_SPACE = 5
 SQUARE_COLOR = "light_black"
 SQUARE_COLOR_BORDER = "border_color"
 SQUARE_BORDER_THIN = 2
+COLOR_TRANSITION_DURATION = 4
 SQUARELEN = 70
 BORDER_RADIUS = 10
 SQUARE_SPACE = 5
@@ -85,6 +58,9 @@ SQUARE_SHAKE_FREQUENCY = 7
 SQUARE_BASE_SCALE_ZOOM_ANIMATION = 1.0
 SQUARE_TARGET_SCALE_ZOOM_ANIMATION = 1.2
 SQUARE_SPEED_ZOOM_ANIMATION = 25.0
+SQUARE_BOUNCE_AMTITUDE = 30
+SQUARE_BOUNCE_SPEED = 3.0
+SQUARE_BOUNCE_DELAY = 0.1
 
 #Game play settings
 WORD_LENGTH = 5

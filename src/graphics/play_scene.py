@@ -19,6 +19,8 @@ class PlayScene(Scene):
         posx = (BASE_SCREEN_WIDTH - self.keyboard.get_size()[0])//2
         posy = (BASE_SCREEN_HEIGHT + 2*BASE_SCREEN_HEIGHT/3 - self.keyboard.get_size()[1])//2
         self.keyboard.set_position(posx,posy)
+        self.win = False
+        self.win_index = 0
 
 
     def update_layout(self,scale, window_width, window_height):
@@ -42,6 +44,7 @@ class PlayScene(Scene):
         posx = (BASE_SCREEN_WIDTH - self.keyboard.get_size()[0])//2
         posy = (BASE_SCREEN_HEIGHT - self.keyboard.get_size()[1])//2
         self.keyboard.set_position(posx,posy)
+        self.win = False
         
 
     def handle_event(self,event):
@@ -59,7 +62,6 @@ class PlayScene(Scene):
        return
 
     def update(self, dt):
-        win_game = False
         while len(self.color_keyboard_queue) > 0:
             row_index = self.color_keyboard_queue[0][0]
             color_list = self.color_keyboard_queue[0][1]
@@ -75,19 +77,27 @@ class PlayScene(Scene):
                             self.keyboard.set_color(char,color)
                     if color == "green":
                         number_of_green += 1
-                    if number_of_green == 5:
-                        win_game = True
                 self.game_engine.set_number_green_word(number_of_green)
+
+                if(number_of_green == 5):
+                    self.square.start_bounce(row_index)
+                    self.win_index = row_index
+                    self.win = True
+
                 tmp = self.color_keyboard_queue.pop(0)
                 print(tmp)
                 print(self.color_keyboard_queue)
             else: 
                 break
-        if len(self.color_keyboard_queue) == 0 and self.square.get_number_of_tried() >= MAX_GUESSES:
+
+        if self.win:
+            if self.square.bounced(self.win_index):
+                self.game_engine.set_win()
+        elif len(self.color_keyboard_queue) == 0 and self.square.get_number_of_tried() >= MAX_GUESSES:
             self.game_engine.set_lose()
-        if(win_game):
-            self.game_engine.set_win()
+
         self.square.update(dt)
+        self.keyboard.update(dt)
         return
     
     def render(self, surface):

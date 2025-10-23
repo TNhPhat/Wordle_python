@@ -3,7 +3,7 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 import pygame
 from graphics.square import Square
 from graphics.base_graphics import Drawable
-from environment.setttings import WORD_LENGTH, SQUARE_SPACE,SQUARE_FLIP_DELAY,SQUARE_SHAKE_AMPLITUDE,SQUARE_SHAKE_DURATION,SQUARE_SHAKE_FREQUENCY
+from environment.setttings import WORD_LENGTH, SQUARE_SPACE,SQUARE_FLIP_DELAY,SQUARE_SHAKE_AMPLITUDE,SQUARE_SHAKE_DURATION,SQUARE_SHAKE_FREQUENCY,COLORS,SQUARE_BOUNCE_DELAY
 
 class row_square(Drawable):
     def __init__(self,scale = 1):
@@ -20,6 +20,11 @@ class row_square(Drawable):
         self.shake_amplitude = SQUARE_SHAKE_AMPLITUDE
         self.shake_frequency = SQUARE_SHAKE_FREQUENCY
         self.pos_before_shake = [0,0]
+
+        self.bouncing = False
+        self.bounce_index = 0
+        self.bounce_time_counter = 0
+
     def update_layout(self, scale, window_width, window_height):
         self.set_scale(scale)
         for i in self.square_list:
@@ -86,6 +91,20 @@ class row_square(Drawable):
             self.square_list[self.string_len].handle_event(event)
         return 
     
+    def start_bounce(self):
+        self.bounce_index = 0
+        self.bouncing = True
+        self.bounce_time_counter = 0
+
+    def bounced(self):
+        if self.bouncing:
+            return False
+        else:
+            for i in self.square_list:
+                if not i.bounced():
+                    return False
+        return True
+    
     def update(self,dt):
         while self.string_len < 5 and self.square_list[self.string_len].is_set_key():
             self.string_len += 1
@@ -96,14 +115,16 @@ class row_square(Drawable):
                     if self.flip_index == 5:
                         self.flipping = False
                     self.square_list[self.flip_index].start_flip()
+                    self.flip_index += 1
                 else:
                     break
-                self.flip_index += 1
         else:
             self.time_counter = 0    
             self.flip_index = 0
 
         if(self.shaking):
+            for i in self.square_list:
+                i.set_border_color(COLORS["red"])
             self.shake_time_counter += dt
             shake_process = self.shake_time_counter/self.shake_duration
             offset_x = int(self.shake_amplitude*min(self.scale) * math.sin(shake_process * math.pi * self.shake_frequency))
@@ -113,6 +134,18 @@ class row_square(Drawable):
                 self.shaking = False
                 self.shake_time_counter = 0
                 self.set_position(self.pos_before_shake[0],self.pos_before_shake[1])
+
+        if self.bouncing:
+            self.bounce_time_counter += dt
+            while self.bounce_index < 5:
+                if self.bounce_time_counter >= self.bounce_index*SQUARE_BOUNCE_DELAY:
+                    self.square_list[self.bounce_index].start_bounce_animation()
+                    self.bounce_index+=1
+                    if self.bounce_index == 5:
+                        self.bouncing = False
+                else:
+                    break
+            
         for i in self.square_list:
             i.update(dt)
         return 
