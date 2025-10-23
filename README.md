@@ -49,7 +49,7 @@ The game need to install **Python 3.13.9** and **Pygame 2.6.1**
 ### Prepare 
 Assets folder can be downloaded from the link below:
 
-Assets Drive: [Assets Drive link](https://drive.google.com/drive/folders/14Vh-EOjlAMTfhunjmRfD7STjhZCqgHLN?usp=sharing)
+Assets Drive: [Assets Drive link](https://drive.google.com/drive/folders/1TtcNBcTebQVegtwZSQJlgWzHZzaQU9sD?usp=sharing)
 
 After downloading, extract and place all assets folders into:
 ```
